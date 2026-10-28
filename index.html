@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Facebook Media Downloader</title><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0f1b33">
+<link rel="icon" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/icon-192.png">
+<style>
+:root{--nv:#0f1b33;--bl:#1d63f0;--bg:#f2f4f9;--cd:#fff;--tx:#14213d;--mu:#6b7690;--bd:#e3e7f0;--ok:#16a34a;--er:#dc2626;--wn:#d97706}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}body{font:15px system-ui,sans-serif;background:var(--bg);color:var(--tx);max-width:640px;margin:auto;min-height:100vh;padding-bottom:calc(70px + env(safe-area-inset-bottom))}
+button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer;border:0}
+.top{background:var(--nv);color:#fff;padding:calc(14px + env(safe-area-inset-top)) 16px 28px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:5}
+.top h2{font-size:18px;flex:1}.top button{background:none;color:#fff;font-size:20px}
+.hero{background:linear-gradient(#32407a,#7a8fd0 70%,#b9c6ef);color:#fff;text-align:center;padding:calc(36px + env(safe-area-inset-top)) 20px 30px}
+.hero img{width:64px;border-radius:16px}.hero h1{font-size:28px;margin:12px 0 6px}.hero p{opacity:.9;font-size:14px;margin-bottom:16px}
+.box{background:var(--cd);border-radius:16px;padding:14px;margin:12px;box-shadow:0 2px 10px #1a2a5014}
+textarea,.in{width:100%;border:1px solid var(--bd);border-radius:12px;padding:12px;background:#fff;resize:none}
+.btn{background:var(--bl);color:#fff;border-radius:12px;padding:13px;width:100%;font-weight:600;margin-top:10px}.btn.s{background:#eaf0ff;color:var(--bl)}.btn.r{background:#fee2e2;color:var(--er)}.btn:disabled{opacity:.5}
+.row{display:flex;gap:8px;align-items:center}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.st{border-radius:14px;padding:12px;text-align:center;background:#eef2ff}.st b{display:block;font-size:24px}.st small{color:var(--mu)}
+.tabs{display:flex;gap:8px;overflow:auto;padding:4px 0}.tab{padding:8px 14px;border-radius:20px;background:#fff;border:1px solid var(--bd);white-space:nowrap}.tab.on{background:var(--bl);color:#fff;border-color:var(--bl)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.card{position:relative;cursor:pointer;font-size:12px}
+.th{aspect-ratio:3/4;border-radius:12px;background:#dde3f0 center/cover;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--mu)}
+.bd{position:absolute;left:6px;bottom:6px;background:#7c3aed;color:#fff;border-radius:6px;padding:2px 6px;font-size:11px}.du{position:absolute;right:6px;bottom:6px;background:#000a;color:#fff;border-radius:6px;padding:2px 6px;font-size:11px}
+.ck{position:absolute;left:6px;top:6px;width:22px;height:22px;accent-color:var(--bl)}
+.card small{color:var(--mu);display:block;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.list .grid{grid-template-columns:1fr}.list .card{display:flex;gap:10px;align-items:center;background:#fff;border-radius:12px;padding:8px}.list .th{width:70px;aspect-ratio:1;flex:none}
+.bar{position:fixed;bottom:calc(58px + env(safe-area-inset-bottom));left:0;right:0;max-width:640px;margin:auto;background:#fff;border-top:1px solid var(--bd);padding:10px 12px;display:flex;gap:10px;align-items:center;z-index:6}
+.bar .btn{margin:0}.nav{position:fixed;bottom:0;left:0;right:0;max-width:640px;margin:auto;background:#fff;border-top:1px solid var(--bd);display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:7}
+.nav button{flex:1;padding:9px;background:none;color:var(--mu);font-size:11px}.nav button.on{color:var(--bl);font-weight:700}.nav span{display:block;font-size:20px}
+.pb{height:6px;background:#e5e9f2;border-radius:4px;overflow:hidden;margin-top:6px}.pb i{display:block;height:100%;background:var(--ok);transition:width .2s}
+.q{display:flex;gap:6px;align-items:center;padding:9px 0;border-bottom:1px solid var(--bd)}
+.tag{font-size:11px;padding:2px 8px;border-radius:10px;background:#eef2ff;color:var(--bl)}.tag.ok{background:#dcfce7;color:var(--ok)}.tag.er{background:#fee2e2;color:var(--er)}.tag.wn{background:#fef3c7;color:var(--wn)}
+.mu{color:var(--mu);font-size:13px}.modal{position:fixed;inset:0;background:#000a;z-index:20;display:flex;align-items:flex-end;justify-content:center}.modal>div{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:640px;max-height:90vh;overflow:auto}
+.pv{aspect-ratio:16/10;background:#000 center/contain no-repeat;position:relative}.pv video{width:100%;height:100%}
+.msg{background:#eef4ff;border-radius:12px;padding:12px;font-size:13px;color:#33507f}.msg.w{background:#fef3c7;color:#92400e}.msg.e{background:#fee2e2;color:#991b1b}
+.sw{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--bd)}
+@media(prefers-color-scheme:dark){:root{--bg:#0b1222;--cd:#16213a;--tx:#e8edf8;--mu:#93a0ba;--bd:#26324d}textarea,.in,.tab,.bar,.nav,.modal>div,.list .card{background:var(--cd)}.st,.btn.s{background:#1e2c4d}}
+</style></head><body><div id="app"></div><div id="modal"></div><div class="nav" id="nav"></div>
+<script>
+const $=s=>document.querySelector(s),LS=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},SV=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const S={view:'home',items:[],sel:new Set(),tab:'all',q:'',sort:'new',mode:'grid',scan:null,jobs:[],cfg:{api:'',zip:true,conc:3,qual:'best',keep:30,...LS('cfg',{})},hist:LS('hist',[]),recent:LS('recent',[]),input:''};
+const E=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const demo=()=>!S.cfg.api;
+function go(v){S.view=v;render()}
+function nav(){const t=[['home','🏠','Home'],['manager','⬇️','Downloads'],['history','🕘','History'],['settings','⚙️','Settings']];$('#nav').innerHTML=t.map(x=>`<button class="${S.view==x[0]||(x[0]=='home'&&['results'].includes(S.view))?'on':''}" onclick="go('${x[0]}')"><span>${x[1]}</span>${x[2]}</button>`).join('')}
+function head(t,back,extra=''){return `<div class="top">${back?`<button onclick="go('${back}')">←</button>`:''}<h2>${t}</h2>${extra}</div>`}
+function render(){nav();const v={home,results,manager,history,settings}[S.view]();$('#app').innerHTML=v}
+function typeOf(u){return /\/reel\//.test(u)?'reel':/\/(videos?|watch)|fb\.watch/.test(u)?'video':/photo|\/p\/|fbid/.test(u)?'photo':'page'}
+function home(){const rec=S.recent.slice(0,4);return `<div class="hero"><img src="icons/icon-192.png" alt=""><h1>Facebook Media Downloader</h1><p>Download public Reels, Photos & Videos from Facebook links — no login needed</p>
+<textarea id="inp" rows="3" class="in" placeholder="Paste Facebook link(s) here — one per line" oninput="S.input=this.value">${E(S.input)}</textarea>
+<div class="row"><button class="btn s" onclick="paste()">📋 Paste</button><button class="btn s" onclick="S.input='';render()">✕ Clear</button></div>
+<button class="btn" onclick="doScan()">🔍 Scan Media</button></div>
+${demo()?`<div class="box msg w"><b>Demo mode.</b> Items shown are sample data, not real Facebook media. Add your free Worker URL in Settings for live downloads.</div>`:''}
+<div class="box"><div class="g3">${[['🎬','Reels'],['🖼️','Photos'],['📹','Videos'],['📦','Bulk ZIP'],['✨','Best quality'],['🔒','No login']].map(x=>`<div class="st"><span style="font-size:22px">${x[0]}</span><small>${x[1]}</small></div>`).join('')}</div></div>
+<div class="box"><b>Supported links</b><p class="mu" style="margin-top:6px">Reel · Video · Photo (public). Page/profile links only return what Facebook shows publicly without login — often nothing; paste individual links for bulk. Private content can't be downloaded.</p></div>
+${rec.length?`<div class="box"><b>Recent scans</b>${rec.map(r=>`<div class="q"><div style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${E(r.u)}</div><span class="mu">${r.n} items</span></div>`).join('')}</div>`:''}`}
+async function paste(){try{S.input=await navigator.clipboard.readText();render()}catch{alert('Clipboard blocked — paste manually.')}}
+const dim=(c)=>`data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${c},60%,45%)"/><stop offset="1" stop-color="hsl(${c+60},60%,25%)"/></linearGradient></defs><rect width="300" height="400" fill="url(#g)"/><text x="150" y="210" font-size="22" fill="#fff" text-anchor="middle" opacity=".8">DEMO</text></svg>`)}`;
+async function doScan(){const urls=S.input.split(/\s+/).filter(Boolean);if(!urls.length)return alert('Paste at least one Facebook link.');
+ const bad=urls.filter(u=>!/^https:\/\/([a-z0-9-]+\.)?(facebook\.com|fb\.com|fb\.watch)\//i.test(u));if(bad.length)return alert('Invalid Facebook URL:\n'+bad[0]);
+ S.items=[];S.sel=new Set();S.scan={total:urls.length,done:0,failed:[],partial:false,cancel:false,notes:[]};S.tab='all';go('results');
+ if(demo()){for(let i=0;i<18;i++){const t=['reel','photo','video'][i%3];S.items.push({id:'demo'+i,type:t,title:`Demo ${t} ${i+1}`,date:Date.now()-i*864e5,dur:t=='photo'?0:20+i*7,thumb:dim(i*40),qualities:[{label:t=='photo'?'Original':'1080p',demo:1},{label:t=='photo'?'High':'720p',demo:1}],demo:1})}S.scan.done=urls.length}
+ else{for(const u of urls){if(S.scan.cancel)break;try{const r=await(await fetch(S.cfg.api.replace(/\/$/,'')+'/?u='+encodeURIComponent(u))).json();
+  if(r.error){S.scan.failed.push(u);S.scan.notes.push(msgErr(r.error))}else if(r.kind=='page'){S.scan.failed.push(u);S.scan.notes.push(r.note)}
+  else S.items.push({id:'i'+S.items.length+Date.now(),type:r.kind=='video'?(typeOf(u)=='reel'?'reel':'video'):'photo',title:r.title||'Untitled',date:Date.now(),dur:0,thumb:r.thumb,qualities:r.qualities,src:u})}
+  catch{S.scan.failed.push(u);S.scan.notes.push('Network error — check your Worker URL and connection.')}S.scan.done++;render()}}
+ S.scan.partial=S.scan.failed.length>0||S.scan.cancel;S.recent.unshift({u:urls[0]+(urls.length>1?` +${urls.length-1}`:''),n:S.items.length});S.recent=S.recent.slice(0,10);SV('recent',S.recent);render()}
+const msgErr=e=>({invalid_url:'Invalid URL.',unsupported_url:'Unsupported URL type.',inaccessible:'Private or inaccessible content.',login_required:'Login required — this content is not public.'}[e]||'Could not process this link.');
+function vis(){let a=S.items.filter(i=>(S.tab=='all'||i.type+'s'==S.tab)&&(!S.q||i.title.toLowerCase().includes(S.q.toLowerCase())));return a.sort((x,y)=>S.sort=='new'?y.date-x.date:S.sort=='old'?x.date-y.date:x.title.localeCompare(y.title))}
+const cnt=t=>S.items.filter(i=>i.type==t).length,dur=s=>s?Math.floor(s/60)+':'+String(s%60).padStart(2,'0'):'';
+function results(){const sc=S.scan||{},a=vis(),run=sc.done<sc.total&&!sc.cancel;
+ return head('Scan Results','home',`<button onclick="S.mode=S.mode=='grid'?'list':'grid';render()">${S.mode=='grid'?'☰':'▦'}</button>`)+`<div style="margin-top:-18px">
+<div class="box">${demo()?'<div class="msg w" style="margin-bottom:10px">Demo mode — sample data, not real Facebook media.</div>':''}
+<div class="g3"><div class="st"><b>${cnt('reel')}</b><small>Reels</small></div><div class="st"><b>${cnt('photo')}</b><small>Photos</small></div><div class="st"><b>${cnt('video')}</b><small>Videos</small></div></div>
+<p class="mu" style="margin-top:10px">Total ${S.items.length} · Downloadable ${S.items.filter(i=>i.qualities.length).length} · Inaccessible ${sc.failed?.length||0} · Scan: ${run?`in progress (${sc.done}/${sc.total})`:sc.partial?'<b style="color:var(--wn)">partial</b>':'<b style="color:var(--ok)">complete</b>'}</p>
+${run?`<div class="pb"><i style="width:${sc.done/sc.total*100}%"></i></div><button class="btn r" onclick="S.scan.cancel=true">Cancel scan</button>`:''}
+${(sc.notes||[]).map(n=>`<div class="msg e" style="margin-top:8px">${E(n)}</div>`).join('')}</div>
+<div class="box ${S.mode=='list'?'list':''}"><div class="tabs">${['all','reels','photos','videos'].map(t=>`<button class="tab ${S.tab==t?'on':''}" onclick="S.tab='${t}';render()">${t[0].toUpperCase()+t.slice(1)}</button>`).join('')}</div>
+<div class="row" style="margin:8px 0"><input class="in" placeholder="Search media…" value="${E(S.q)}" oninput="S.q=this.value;clearTimeout(window.T);window.T=setTimeout(()=>{render();$('.in').focus()},300)"><select class="in" style="width:auto" onchange="S.sort=this.value;render()"><option value="new">Newest</option><option value="old" ${S.sort=='old'?'selected':''}>Oldest</option><option value="az" ${S.sort=='az'?'selected':''}>A–Z</option></select></div>
+<div class="row" style="flex-wrap:wrap;margin-bottom:8px"><button class="tag" onclick="selVis()">Select visible</button><button class="tag" onclick="selType('reel')">All Reels</button><button class="tag" onclick="selType('photo')">All Photos</button><button class="tag" onclick="selType('video')">All Videos</button><button class="tag" onclick="selAll()">All eligible</button><button class="tag" onclick="invert()">Invert</button><button class="tag er" onclick="S.sel.clear();render()">Clear</button></div>
+${a.length?`<div class="grid">${a.map(card).join('')}</div>`:`<p class="mu" style="text-align:center;padding:30px">${run?'Scanning…':'No media found.'}</p>`}</div></div>
+<div class="bar"><span><b>${S.sel.size}</b> selected<br><small class="mu">${[...S.sel].filter(id=>byId(id).type=='reel').length} Reels · ${[...S.sel].filter(id=>byId(id).type=='photo').length} Photos · ${[...S.sel].filter(id=>byId(id).type=='video').length} Videos</small></span><button class="btn" style="flex:1" ${S.sel.size?'':'disabled'} onclick="startJob([...S.sel])">Bulk Download (${S.sel.size})</button></div>`}
+const byId=id=>S.items.find(i=>i.id==id);
+function card(i){return `<div class="card" onclick="openItem('${i.id}')"><div class="th" style="background-image:url('${i.thumb?E(i.thumb):''}')">${i.thumb?'':'No preview'}<input class="ck" type="checkbox" ${S.sel.has(i.id)?'checked':''} onclick="event.stopPropagation();tog('${i.id}')"><span class="bd">${i.type}</span>${i.dur?`<span class="du">${dur(i.dur)}</span>`:''}</div><div><b style="font-size:12px">${E(i.title).slice(0,30)}</b><small>${new Date(i.date).toLocaleDateString()} · ${i.qualities.length?'Downloadable':'Unavailable'}</small></div></div>`}
+function tog(id){S.sel.has(id)?S.sel.delete(id):S.sel.add(id);render()}
+const selVis=()=>{vis().forEach(i=>S.sel.add(i.id));render()},selType=t=>{S.items.filter(i=>i.type==t).forEach(i=>S.sel.add(i.id));render()},selAll=()=>{S.items.filter(i=>i.qualities.length).forEach(i=>S.sel.add(i.id));render()},invert=()=>{vis().forEach(i=>S.sel.has(i.id)?S.sel.delete(i.id):S.sel.add(i.id));render()};
+function openItem(id){const i=byId(id);$('#modal').innerHTML=`<div class="modal" onclick="if(event.target==this)this.innerHTML=''"><div><div class="pv" style="background-image:url('${i.thumb?E(i.thumb):''}')"></div><div style="padding:16px"><h3>${E(i.title)}</h3><p class="mu">${new Date(i.date).toLocaleDateString()} · ${i.type}${i.dur?' · '+dur(i.dur):''}</p><h4 style="margin:14px 0 4px">Quality options</h4>
+${i.qualities.length?i.qualities.map((q,k)=>`<label class="q"><input type="radio" name="ql" value="${k}" ${k==0?'checked':''}> ${E(q.label)}</label>`).join(''):'<div class="msg e">No downloadable source available for this item.</div>'}
+<button class="btn" ${i.qualities.length?'':'disabled'} onclick="startJob(['${id}'],+(document.querySelector('[name=ql]:checked')||{value:0}).value);$('#modal').innerHTML=''">Download</button></div></div></div>`}
+// ---------- download manager ----------
+let running=0;
+function startJob(ids,qi=0){const id=Date.now();const job={id,created:Date.now(),items:ids.map(x=>{const m=byId(x);return{mid:x,m,name:fname(m,qi),qi,st:'waiting',pct:0}}),zip:'',cancel:false};S.jobs.unshift(job);go('manager');pump(job)}
+const fname=(m,qi)=>{const ext=m.type=='photo'?'jpg':'mp4',d=new Date(m.date).toISOString().slice(0,10);return `${m.type}_${d}_${m.id.replace(/\W/g,'').slice(-8)}.${ext}`};
+async function pump(job){const next=()=>job.items.find(x=>x.st=='waiting');
+ await Promise.all(Array.from({length:+S.cfg.conc||3},async()=>{let x;while(!job.cancel&&(x=next())){x.st='active';render();await dl(x,job);render()}}));
+ finish(job)}
+async function dl(x,job){try{const q=x.m.qualities[Math.min(x.qi,x.m.qualities.length-1)];if(!q)throw'No source';let blob;
+ if(q.demo){for(let p=0;p<=100&&!x.cancel;p+=20){x.pct=p;render();await new Promise(r=>setTimeout(r,150))}blob=new Blob([`DEMO placeholder for ${x.m.title}`],{type:'text/plain'});x.name=x.name.replace(/\.\w+$/,'.demo.txt')}
+ else{x.ctrl=new AbortController();const r=await fetch(S.cfg.api.replace(/\/$/,'')+'/dl?u='+encodeURIComponent(q.url),{signal:x.ctrl.signal});if(!r.ok)throw'HTTP '+r.status;const tot=+r.headers.get('content-length')||0,rd=r.body.getReader(),ch=[];let got=0;
+  for(;;){const{done,value}=await rd.read();if(done)break;ch.push(value);got+=value.length;if(tot){x.pct=Math.round(got/tot*100);render()}}blob=new Blob(ch);x.size=got}
+ if(x.cancel)throw'cancelled';x.blob=blob;x.pct=100;x.st='done'}catch(e){x.st=x.cancel?'cancelled':'failed';x.err=String(e)}}
+async function finish(job){const ok=job.items.filter(x=>x.st=='done');
+ if(ok.length>1&&S.cfg.zip){job.zip='building';render();try{const files=[];for(const x of ok){const f=x.m.type=='reel'?'Reels':x.m.type=='video'?'Videos':'Photos';files.push({name:`Facebook_Export/${f}/${x.name}`,data:new Uint8Array(await x.blob.arrayBuffer())})}
+  files.push({name:'Facebook_Export/Metadata/manifest.json',data:new TextEncoder().encode(JSON.stringify(ok.map(x=>({file:x.name,title:x.m.title,type:x.m.type,source:x.m.src||null,demo:!!x.m.demo})),null,1))});
+  save(zip(files),`Facebook_Export_${job.id}.zip`);job.zip='ready'}catch{job.zip='failed'}}
+ else if(!S.cfg.zip)ok.forEach(x=>save(x.blob,x.name));
+ logHist(job);render()}
+function logHist(job){const ok=job.items.filter(x=>x.st=='done').length;S.hist.unshift({id:job.id,date:Date.now(),n:ok,total:job.items.length,st:ok==job.items.length?'Completed':ok?'Partial':'Failed'});SV('hist',S.hist)}
+function save(b,n){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;document.body.append(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000)}
+function retry(jid,k){const job=S.jobs.find(j=>j.id==jid),x=job.items[k];x.st='waiting';x.cancel=false;x.pct=0;job.cancel=false;pump(job)}
+function cancelItem(jid,k){const x=S.jobs.find(j=>j.id==jid).items[k];x.cancel=true;x.ctrl?.abort();if(x.st=='waiting')x.st='cancelled';render()}
+function cancelJob(jid){const j=S.jobs.find(j=>j.id==jid);j.cancel=true;j.items.forEach(x=>{x.cancel=true;x.ctrl?.abort();if(x.st=='waiting')x.st='cancelled'});render()}
+function manager(){const j=S.jobs[0];if(!j)return head('Download Manager')+`<div class="box mu" style="text-align:center;margin-top:-10px">No downloads yet. Select media and tap Bulk Download.</div>`;
+ const c=s=>j.items.filter(x=>x.st==s).length;
+ return head('Download Manager','home')+`<div style="margin-top:-18px"><div class="box"><div class="g3" style="grid-template-columns:repeat(4,1fr)"><div class="st"><b>${j.items.length}</b><small>Total</small></div><div class="st"><b style="color:var(--ok)">${c('done')}</b><small>Done</small></div><div class="st"><b>${c('active')}</b><small>Active</small></div><div class="st"><b style="color:var(--er)">${c('failed')}</b><small>Failed</small></div></div>
+<p class="mu" style="margin-top:8px">Remaining: ${c('waiting')+c('active')}${j.zip?' · ZIP: '+({building:'creating archive…',ready:'saved to your device ✓',failed:'failed'}[j.zip]):''}</p>${c('active')+c('waiting')?`<button class="btn r" onclick="cancelJob(${j.id})">Cancel all</button>`:''}</div>
+<div class="box">${j.items.map((x,k)=>`<div class="q"><div style="flex:1;min-width:0"><div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${E(x.name)}</div><div class="pb"><i style="width:${x.pct}%"></i></div><small class="mu">${x.size?(x.size/1048576).toFixed(1)+' MB · ':''}${x.pct}% ${x.err?'· '+E(x.err):''}</small></div><span class="tag ${x.st=='done'?'ok':x.st=='failed'?'er':x.st=='active'?'':'wn'}">${x.st}</span>${['failed','cancelled'].includes(x.st)?`<button class="tag" onclick="retry(${j.id},${k})">Retry</button>`:''}${['active','waiting'].includes(x.st)?`<button class="tag er" onclick="cancelItem(${j.id},${k})">✕</button>`:''}</div>`).join('')}</div></div>`}
+function history(){const cut=Date.now()-S.cfg.keep*864e5;S.hist=S.hist.filter(h=>h.date>cut);SV('hist',S.hist);
+ return head('Download History','home',`<button onclick="if(confirm('Delete history?')){S.hist=[];SV('hist',[]);render()}">🗑</button>`)+`<div class="box" style="margin-top:-10px">${S.hist.map(h=>`<div class="q"><div style="flex:1"><b>Export ${new Date(h.date).toLocaleString()}</b><br><small class="mu">${h.n}/${h.total} files</small></div><span class="tag ${h.st=='Completed'?'ok':'wn'}">${h.st}</span></div>`).join('')||'<p class="mu">No history.</p>'}<p class="mu" style="margin-top:10px">Archives are saved straight to your device and are not kept by the app.</p></div>`}
+function settings(){return head('Settings','home')+`<div class="box" style="margin-top:-10px"><b>Backend (free Cloudflare Worker)</b><input class="in" style="margin-top:8px" placeholder="https://your-worker.workers.dev (empty = demo mode)" value="${E(S.cfg.api)}" onchange="cfg('api',this.value.trim())"><p class="mu" style="margin-top:6px">Deploy worker.js for free to enable live downloads of public content. See README.</p></div>
+<div class="box"><div class="sw">Create ZIP for multiple files<input type="checkbox" ${S.cfg.zip?'checked':''} onchange="cfg('zip',this.checked)"></div>
+<div class="sw">Default quality<select class="in" style="width:auto" onchange="cfg('qual',this.value)"><option value="best">Highest available</option></select></div>
+<div class="sw">Parallel downloads<select class="in" style="width:auto" onchange="cfg('conc',+this.value)">${[1,2,3,5].map(n=>`<option ${S.cfg.conc==n?'selected':''}>${n}</option>`).join('')}</select></div>
+<div class="sw">History retention (days)<select class="in" style="width:auto" onchange="cfg('keep',+this.value)">${[7,30,90].map(n=>`<option ${S.cfg.keep==n?'selected':''}>${n}</option>`).join('')}</select></div>
+<div class="sw">Theme<span class="mu">Follows device</span></div></div>
+<div class="box"><b>Privacy</b><p class="mu" style="margin:6px 0">No account connection or password is needed. Everything is stored only on your device. Only download content you own or have permission to save.</p><button class="btn r" onclick="if(confirm('Clear all data?')){localStorage.clear();location.reload()}">Clear all data</button></div>`}
+const cfg=(k,v)=>{S.cfg[k]=v;SV('cfg',S.cfg);render()};
+// ---------- zip (store, no compression) ----------
+const CT=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const crc=b=>{let c=-1;for(let i=0;i<b.length;i++)c=CT[(c^b[i])&255]^(c>>>8);return(c^-1)>>>0};
+function zip(files){const P=[],C=[];let off=0;const mk=(n,f)=>{const d=new DataView(new ArrayBuffer(n));f(d);return new Uint8Array(d.buffer)};
+ for(const f of files){const nb=new TextEncoder().encode(f.name),c=crc(f.data),s=f.data.length;
+  const lh=mk(30,d=>{d.setUint32(0,0x04034b50,1);d.setUint16(4,20,1);d.setUint16(6,0x800,1);d.setUint16(12,33,1);d.setUint32(14,c,1);d.setUint32(18,s,1);d.setUint32(22,s,1);d.setUint16(26,nb.length,1)});
+  const ch=mk(46,d=>{d.setUint32(0,0x02014b50,1);d.setUint16(4,20,1);d.setUint16(6,20,1);d.setUint16(8,0x800,1);d.setUint16(14,33,1);d.setUint32(16,c,1);d.setUint32(20,s,1);d.setUint32(24,s,1);d.setUint16(28,nb.length,1);d.setUint32(42,off,1)});
+  P.push(lh,nb,f.data);C.push(ch,nb);off+=30+nb.length+s}
+ const cs=C.reduce((a,b)=>a+b.length,0);const end=mk(22,d=>{d.setUint32(0,0x06054b50,1);d.setUint16(8,files.length,1);d.setUint16(10,files.length,1);d.setUint32(12,cs,1);d.setUint32(16,off,1)});
+ return new Blob([...P,...C,end],{type:'application/zip'})}
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+render();
+</script></body></html>
